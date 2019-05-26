@@ -74,7 +74,35 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container-fluid"> 
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-shrink-1 bd-highlight col-3">
+                        <div class="list-group">
+                            <a href="{{ route('home') }}" class="list-group-item list-group-item-action {{ $active_stations }}">Estaciones</a>
+                            <a href="{{ route('percentage') }}" class="list-group-item list-group-item-action {{ $active_percentage }}">Porcentajes</a>
+                            <a href="#" class="list-group-item list-group-item-action {{ $active_calculos }}">Calculos</a>
+                            <!--<a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                            <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>-->
+                        </div>
+                    </div>
+                    <div class="p-2 w-100 bd-highlight">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">{{ $title ?? $title }}</div>
+
+                                    <div class="card-body">
+                                        @if (session('status'))
+                                            <div class="alert alert-success" role="alert">{{ session('status') }}</div>
+                                        @endif
+                                        @yield('content')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

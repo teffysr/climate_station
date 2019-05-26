@@ -18,3 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/porcentajes', 'PercentageController@index')->name('percentage');
+Route::get('/porcentajes/{station}/valores', 'PercentageController@show')->name('percentage_value');

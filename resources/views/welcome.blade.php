@@ -46,12 +46,14 @@
 
             .title {
                 font-size: 84px;
+                color: #FFFFFF;
+                font-weight: bold;
             }
 
             .links > a {
-                color: #636b6f;
+                color: #FFFFFF;
                 padding: 0 25px;
-                font-size: 13px;
+                font-size: 18px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -61,16 +63,24 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .foot-center {
+                position: absolute;
+                left: 0px;
+                top: 8px;
+            }
         </style>
     </head>
     <body>
+
+                <img src="/img/clima.jpg" style="width: 100%;position: absolute; top:0;left: 0;">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Ingresar</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
@@ -80,9 +90,10 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title m-b-md" style="border: 3px solid #848484;padding-right: 20px;padding-left: 20px;">
                     {{ trans('index.title') }}
                 </div>
+
 
                 <!--<div class="links">
                     <a href="https://laravel.com/docs">Docs</a>

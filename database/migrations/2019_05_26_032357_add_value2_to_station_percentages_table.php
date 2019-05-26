@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDefautValuesTable extends Migration
+class AddValue2ToStationPercentagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateDefautValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('defaut_values', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('station_percentages', function (Blueprint $table) {
+            $table->decimal('value2',8,2)->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreateDefautValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('defaut_values');
+        Schema::table('station_percentages', function (Blueprint $table) {
+            //
+        });
     }
 }
