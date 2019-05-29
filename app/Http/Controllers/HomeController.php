@@ -4,30 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Station;
+use App\Model\StationValue;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Service\Service;
 
+//StationController
 class HomeController extends Controller
 {
+    protected $service;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Service $service)
     {
         $this->middleware('auth');
+        $this->service = $service;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index(Request $request)
     {
         $stations = Station::all();
-        $paginatedItems = $this->paginatedItems($request,$stations);
+        $paginatedItems = $this->service->paginatedItems($request,$stations);
 
 
         return response()->view('home',[
@@ -39,15 +39,21 @@ class HomeController extends Controller
             ] );
     }
 
-    public function paginatedItems($request,$data)
+    public function showHistory($stationId, Request $request)
     {
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $itemCollection = collect($data);
-        $perPage = 15;
-        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
-        $paginatedItems= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
-        $paginatedItems->setPath($request->url());
+        $station = Station::where('id',$stationId)->first();
+        $stationValue = StationValue::where('station',$stationId)->get();
 
-        return $paginatedItems;
+        $paginatedItems = $this->service->paginatedItems($request,$stationValue);
+
+        return response()->view('historic',[
+            'title' => 'Historial climatico de estacion: '. $station->name, 
+            'active_stations' => 'active',
+            'active_percentage' => '',
+            'active_calculos' => '',
+            'stationValue' => $paginatedItems
+            ] );
+
     }
+
 }

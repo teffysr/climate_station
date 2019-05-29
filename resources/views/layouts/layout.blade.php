@@ -42,11 +42,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                                 </li>
                             @endif
                         @else
@@ -80,7 +80,7 @@
                         <div class="list-group">
                             <a href="{{ route('home') }}" class="list-group-item list-group-item-action {{ $active_stations }}">Estaciones</a>
                             <a href="{{ route('percentage') }}" class="list-group-item list-group-item-action {{ $active_percentage }}">Porcentajes</a>
-                            <a href="#" class="list-group-item list-group-item-action {{ $active_calculos }}">Calculos</a>
+                            <a href="{{ route('calculos') }}" class="list-group-item list-group-item-action {{ $active_calculos }}">Calculos</a>
                             <!--<a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
                             <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>-->
                         </div>

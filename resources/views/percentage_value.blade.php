@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 @section('content')
+
+@if(!empty($save_ok) && $save_ok == 1)
+    <div class="alert alert-success"> Se han actualizado los valores con éxito </div>
+@endif
+<form action="/porcentajes/{{ $station }}/update" method="POST">
+        @csrf
     <table class="table">
         <thead>
             <tr>
@@ -12,14 +18,16 @@
         <tbody>
             @foreach ($station_percentage as $percentage)
                 <tr>
-                    <th scope="col">{{ $percentage->short_name }}</th>
-                    <th scope="col">{{ $percentage->value }}</th>
-                    <th scope="col">{{ $percentage->value2 }}</th>
+                    <input type="hidden" name="id[]" value="{{ $percentage->id }}">
+                    <th scope="col"><input type="text" name="{{ $percentage->id.'_name' }}" value="{{ $percentage->short_name }}" readonly="true" style="border: none;"></th>
+                    <th scope="col"><input type="text" name="{{ $percentage->id.'_a' }}" value="{{ $percentage->value }}" style="border: none;"></th>
+                    <th scope="col"><input type="text" name="{{ $percentage->id.'_b' }}" value="{{ $percentage->value2 }}" style="border: none;"></th>
                     <th scope="col"></th>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
-    <a href="{{ route('percentage') }}" class="btn btn-info"> << Volver</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+    <a href="{{ route('percentage') }}" class="btn btn-info mt-5"> << Volver</a>
 @endsection
