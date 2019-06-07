@@ -1,9 +1,11 @@
 @extends('layouts.layout')
 @section('content')
-<form>
+<form method="POST" action="{{ route('storecalculo') }}">
+  @csrf
 	<div class="form-group">
+    <button type="submit">Procesar información</button>
 		<label for="station">Seleccione Estación</label>
-    	<select class="form-control" id="station">
+    	<select class="form-control" id="station" name="station">
         @foreach($stations as $s)
       		<option value="{{ $s->id }}">{{ $s->name }}</option>
         @endforeach  
@@ -11,12 +13,12 @@
   </div>
     <div class="row form-group">
       <div class="col-md-6">
-        <label for="station">Factor 1</label>
+        <label for="">Factor 1</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">F1</label>
           </div>
-          <select class="custom-select" id="inputGroupSelect01">
+          <select class="custom-select" id="inputGroupSelect01" name="f1">
             <option selected>Seleccione...</option>
             @foreach($f1 as $factor1)
             <option value="{{ $factor1->id }}">{{ $factor1->name }}</option>
@@ -52,7 +54,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect02">F2</label>
           </div>
-          <select class="custom-select" id="inputGroupSelect02">
+          <select class="custom-select" id="inputGroupSelect02" name="f2">
             <option selected>Seleccione...</option>
              @foreach($f2 as $factor2)
             <option value="{{ $factor2->id }}">{{ $factor2->name }}</option>
