@@ -23,27 +23,37 @@ class CalculosController extends Controller
             'active_calculos' => 'active',
         	'stations' => $stations,
         	'f1' => $f1,
-        	'f2' => $f2]);
+        	'f2' => $f2
+        ]);
     }
 
     public function store(Request $request)
     {
+        $stations = Station::all();
+        $f1_variables = Variable::all() ;
+        $f2_variables = $f1_variables;
+
         $station = $request->get('station');
         /*calculo f1*/
         $f1 = $request->get('f1');
         $f1_us = $this->getValuesU($f1,$station);
-        dump($f1_us);
-       
-        
         /*calculo f2*/
-        $f1 = $request->get('f2');
-        $f1_us = $this->getValuesU($f1,$station);
-        dump($f1_us);
+        $f2 = $request->get('f2');
+        $f2_us = $this->getValuesU($f2,$station);
 
-        //dump($f1_historic);
-        //dump( $f1->value );
-        //dump( $f2 );
-        return 2;
+        return response()->view('calculos',[
+            'title' => 'Calculos', 
+            'active_stations' => '',
+            'active_percentage' => '',
+            'active_calculos' => 'active',
+            'stations' => $stations,
+            'f1' => $f1_variables,
+            'f2' => $f2_variables,
+            'data' => [
+                'f1' => $f1_us,
+                'f2' => $f2_us
+            ]
+        ]);
     }
 
     public function getValuesU($f, $station) 
@@ -76,7 +86,7 @@ class CalculosController extends Controller
             $f1_u3 = StationValue::where('station',$station)->where($f1->short_name,'<',$f1->value)->get();
             $return['U3'] = $f1_u3->count()/$f1_total;
         }
-        
+
         return $return;
     }
 }

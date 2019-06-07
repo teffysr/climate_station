@@ -30,18 +30,14 @@
             <div class="card-body">
               <table class="table">
                 <tbody>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
+                  @if(!empty($data))
+                    @foreach($data['f1'] as $key => $f1)
+                      <tr>
+                        <td>{{ $key }}</td>
+                        <td>{{ $f1 }}</td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
@@ -66,18 +62,14 @@
             <div class="card-body">
               <table class="table">
                 <tbody>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
-                  <tr>
-                    <td>xx</td>
-                    <td>xx</td>
-                  </tr>
+                  @if(!empty($data))
+                    @foreach($data['f2'] as $key => $f2)
+                      <tr>
+                        <td>{{ $key }}</td>
+                        <td>{{ $f2 }}</td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
