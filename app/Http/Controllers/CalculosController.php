@@ -54,14 +54,13 @@ class CalculosController extends Controller
                 $array[$key2][$key1] = $v;
             }
         }
-dump($array);
-
 
         return response()->view('calculos_st',[
             'title' => 'Calculos', 
             'active_stations' => '',
             'active_percentage' => '',
             'active_calculos' => 'active',
+            'request' => $request->all(),
             'stations' => $stations,
             'f1' => $f1_variables,
             'f2' => $f2_variables,

@@ -21,7 +21,7 @@
           <select class="custom-select" id="inputGroupSelect01" name="f1">
             <option selected>Seleccione...</option>
             @foreach($f1 as $factor1)
-            <option value="{{ $factor1->id }}">{{ $factor1->name }}</option>
+            <option value="{{ $factor1->id }}" {!! $request['f1']==$factor1->id?'selected':'' !!}>{{ $factor1->name }}</option>
             @endforeach 
           </select>
         </div>
@@ -53,7 +53,7 @@
           <select class="custom-select" id="inputGroupSelect02" name="f2">
             <option selected>Seleccione...</option>
              @foreach($f2 as $factor2)
-            <option value="{{ $factor2->id }}">{{ $factor2->name }}</option>
+            <option value="{{ $factor2->id }}" {!! $request['f2']==$factor2->id?'selected':'' !!}>{{ $factor2->name }}</option>
             @endforeach
           </select>
         </div>
