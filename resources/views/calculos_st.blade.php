@@ -26,14 +26,14 @@
           </select>
         </div>
         <div class="card">
-            <div class="card-header">Tabla de zeta</div>
+            <div class="card-header">Valores Factor 1</div>
             <div class="card-body">
               <table class="table">
                 <tbody>
                   @if(!empty($data))
                     @foreach($data['f1'] as $key => $f1)
                       <tr>
-                        <td>{{ $key }}</td>
+                        <td>{!! $key !!}</td>
                         <td>{{ $f1 }}</td>
                       </tr>
                     @endforeach
@@ -58,14 +58,14 @@
           </select>
         </div>
         <div class="card">
-            <div class="card-header">Tabla de zeta</div>
+            <div class="card-header">Valores Factor 2</div>
             <div class="card-body">
               <table class="table">
                 <tbody>
                   @if(!empty($data))
                     @foreach($data['f2'] as $key => $f2)
                       <tr>
-                        <td>{{ $key }}</td>
+                        <td>{!! $key !!}</td>
                         <td>{{ $f2 }}</td>
                       </tr>
                     @endforeach
@@ -86,30 +86,22 @@
                     <thead>
                         <tr>
                           <th scope="col">P(+x|U1,U2)</th>
-                          <th scope="col">U¹+</th>
-                          <th scope="col">U¹°</th>
-                          <th scope="col">U¹-</th>
+                          @foreach($data['tdp'][0] as $key => $value)
+                            <th scope="col">{!! $value !!}</th>
+                          @endforeach
                         </tr>            
                     </thead>
                     <tbody>
-                        <tr>
-                          <td>U²+</td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>U²°</td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <td>U²-</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr>
+                        @foreach($data['tdp'] as $key => $value)
+                          @if($key != '0')
+                            <tr>
+                              <td>{!! $key !!}</td>
+                              @foreach($value as $v1)
+                                <td>{{ $v1 }}</td>
+                              @endforeach
+                            </tr>
+                          @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

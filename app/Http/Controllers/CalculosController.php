@@ -36,12 +36,28 @@ class CalculosController extends Controller
         $station = $request->get('station');
         /*calculo f1*/
         $f1 = $request->get('f1');
-        $f1_us = $this->getValuesU($f1,$station);
+        $f1_us = $this->getValuesU($f1,$station,1);
         /*calculo f2*/
         $f2 = $request->get('f2');
-        $f2_us = $this->getValuesU($f2,$station);
+        $f2_us = $this->getValuesU($f2,$station,2);
 
-        return response()->view('calculos',[
+        foreach ($f1_us as $key1 => $value1) {
+            $array[0][] = $key1;
+        }
+
+        foreach ($f2_us as $key2 => $value2) {
+            foreach ($f1_us as $key1 => $value1) {
+                /*var valor = (parseFloat($(u1[j]).val())+parseFloat($(u2[i]).val()))/2;
+                    console.log(valor + $(u1[j]).attr('id'));*/
+
+                $v = ($value1 + $value2)/2;
+                $array[$key2][$key1] = $v;
+            }
+        }
+dump($array);
+
+
+        return response()->view('calculos_st',[
             'title' => 'Calculos', 
             'active_stations' => '',
             'active_percentage' => '',
@@ -51,12 +67,13 @@ class CalculosController extends Controller
             'f2' => $f2_variables,
             'data' => [
                 'f1' => $f1_us,
-                'f2' => $f2_us
+                'f2' => $f2_us,
+                'tdp' => $array
             ]
         ]);
     }
 
-    public function getValuesU($f, $station) 
+    public function getValuesU($f, $station,$u) 
     {        
         $return = [];
 
@@ -68,23 +85,23 @@ class CalculosController extends Controller
             /*obtengo todos los registros donde el valor del factor sea mayor a su valor base*/
             $f1_max = StationValue::where('station',$station)->where($f1->short_name,'>=',$f1->value)->get();
 
-            $return['U1'] = $f1_max->count()/$f1_total;
+            $return['U&sup'.$u.';+'] = $f1_max->count()/$f1_total;
 
             /*obtengo todos los registros donde el valor del factor sea menor a su valor base*/
             $f1_min = StationValue::where('station',$station)->where($f1->short_name,'<',$f1->value2)->get();
 
-            $return['U2'] = $f1_min->count()/$f1_total;
+            $return['U&sup'.$u.';-'] = $f1_min->count()/$f1_total;
 
         }else{
 
             $f1_u1 = StationValue::where('station',$station)->where($f1->short_name,'>',$f1->value2)->get();
-            $return['U1'] = $f1_u1->count()/$f1_total;
+            $return['U&sup'.$u.';+'] = $f1_u1->count()/$f1_total;
 
             $f1_u2 = StationValue::where('station',$station)->where($f1->short_name,'<=',$f1->value2)->where($f1->short_name,'>',$f1->value)->get();
-            $return['U2'] = $f1_u2->count()/$f1_total;
+            $return['U&sup'.$u.';°'] = $f1_u2->count()/$f1_total;
 
             $f1_u3 = StationValue::where('station',$station)->where($f1->short_name,'<',$f1->value)->get();
-            $return['U3'] = $f1_u3->count()/$f1_total;
+            $return['U&sup'.$u.';-'] = $f1_u3->count()/$f1_total;
         }
 
         return $return;
