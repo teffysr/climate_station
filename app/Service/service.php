@@ -12,7 +12,7 @@ class Service
     {
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $itemCollection = collect($data);
-        $perPage = 15;
+        $perPage = 25;
         $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
         $paginatedItems= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
         $paginatedItems->setPath($request->url());

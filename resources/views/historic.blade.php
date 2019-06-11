@@ -64,8 +64,7 @@
             @endforeach
         </tbody>
     </table>
-
-    <a href="{{ route('home') }}" class="btn btn-info"> << Volver</a>
+    {{ $stationValue->links() }}
 
 <script type="text/javascript">
     $(function () {

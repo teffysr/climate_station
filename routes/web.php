@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/{station}/historic', 'HomeController@showHistory')->name('in_construction');
 Route::get('/calculos', 'CalculosController@index')->name('calculos');
-Route::post('/storecalculo', 'CalculosController@store')->name('storecalculo');
+Route::post('/calculo', 'CalculosController@store')->name('calculo');
 
 
 Route::get('/porcentajes', 'PercentageController@index')->name('percentage');

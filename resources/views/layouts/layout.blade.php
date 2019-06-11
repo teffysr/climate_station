@@ -91,7 +91,7 @@
                                 <div class="card">
                                     <div class="card-header">{{ $title ?? $title }}</div>
 
-                                    <div class="card-body">
+                                    <div class="card-body"  style="overflow: auto;">
                                         @if (session('status'))
                                             <div class="alert alert-success" role="alert">{{ session('status') }}</div>
                                         @endif
